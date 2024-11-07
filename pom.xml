@@ -116,6 +116,22 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${plugin.maven-javadoc-plugin.version}</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <!-- 如果需要，可以在这里指定 mainClass，但通常这是通过其他方式配置的 -->
+                     <archive>
+                        <manifest>
+                            <mainClass>com.github.houbb.nginx4j.SimpleHttpServer</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+
         </plugins>
     </build>
 
