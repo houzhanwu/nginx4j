@@ -1,5 +1,9 @@
 package com.github.houbb.nginx4j;
 
+import com.github.houbb.nginx4j.bs.Nginx4jBs;
+import com.github.houbb.nginx4j.config.NginxUserConfig;
+import com.github.houbb.nginx4j.config.load.NginxUserConfigLoaders;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,14 +27,12 @@ public class SimpleHttpServer {
 
         String basicPath = args[1];
         //int port = 8080; // 服务器监听的端口号
-        ServerSocket serverSocket = new ServerSocket(port);
-        System.out.println("Listening on port " + port);
-        //String basicPath = "D:\\workspace_sx\\nginx4j\\src\\test\\resources";
-        while (true) {
-            Socket socket = serverSocket.accept();
-            System.out.println("Accepted connection from " + socket.getRemoteSocketAddress());
-            handleClient(socket, basicPath);
-        }
+        NginxUserConfig nginxUserConfig = NginxUserConfigLoaders.configComponentFile(basicPath).load();
+
+        Nginx4jBs.newInstance()
+                .nginxUserConfig(nginxUserConfig)
+                .init()
+                .start();
     }
 
     private static void handleClient(Socket socket, String basicPath) {
