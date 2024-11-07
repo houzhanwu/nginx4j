@@ -128,9 +128,43 @@
                             <mainClass>com.github.houbb.nginx4j.SimpleHttpServer</mainClass>
                         </manifest>
                     </archive>
-                </configuration>
-            </plugin>
 
+                </configuration>
+
+            </plugin>
+            <!-- maven-assembly-plugin 配置（用于创建包含所有依赖的 JAR 文件） -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version> <!-- 使用适当的版本 -->
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- 绑定到 package 阶段 -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 指定描述符，这里使用预定义的 jar-with-dependencies -->
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <!-- 可选：自定义输出文件名 -->
+                            <finalName>${project.artifactId}-${project.version}-jar-with-dependencies</finalName>
+                            <!-- 可选：是否将 assemblyId 附加到输出文件名 -->
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <!-- 可选：指定主类（如果需要在 assembly 的 manifest 中设置） -->
+                            <archive>
+                                <manifest>
+                                    <mainClass>com.github.houbb.nginx4j.SimpleHttpServer</mainClass>
+                                </manifest>
+                            </archive>
+                            <!-- 注意：如果在 maven-jar-plugin 中已经指定了 mainClass，这里也可以省略 -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
