@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Nginx4jBsTest {
 
     public static void main(String[] args) {
-        final String configPath = "D:\\github\\nginx4j\\nginx4j\\src\\main\\resources\\nginx.conf";
+        final String configPath = "D:\\nginx.conf";
         NginxUserConfig nginxUserConfig = NginxUserConfigLoaders.configComponentFile(configPath).load();
 
         Nginx4jBs.newInstance()
